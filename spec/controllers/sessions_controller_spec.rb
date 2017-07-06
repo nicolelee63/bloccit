@@ -1,26 +1,26 @@
 require 'rails_helper'
 
-RSpec.describe SessionsController, type: :controller 
+RSpec.describe SessionsController, type: :controller do
 
-	let(:my_user) { User.create!(name: "Blochead", email: "blochead@bloc.io", password: "password") }
+	let(:my_user) { create(:user) }
  
-   describe "GET new" do
-     it "returns http success" do
-       get :new
-       expect(response).to have_http_status(:success)
-     end
-   end
+  describe "GET new" do
+    it "returns http success" do
+      get :new
+      expect(response).to have_http_status(:success)
+    end
+  end
 
-   describe "DELETE sessions/id" do
-     it "render the #welcome view" do
-       delete :destroy, id: my_user.id
-       expect(response).to redirect_to root_path
-     end
+  describe "DELETE sessions/id" do
+    it "render the #welcome view" do
+      delete :destroy, id: my_user.id
+      expect(response).to redirect_to root_path
+    end
  
-     it "deletes the user's session" do
-       delete :destroy, id: my_user.id
-       expect(assigns(:session)).to be_nil
-     end
+    it "deletes the user's session" do
+      delete :destroy, id: my_user.id
+      expect(assigns(:session)).to be_nil
+    end
  
      it "flashes #notice" do
        delete :destroy, id: my_user.id
@@ -57,6 +57,6 @@ RSpec.describe SessionsController, type: :controller
      it "redirects to the root view" do
        post :create, session: {email: my_user.email, password: my_user.password}
        expect(response).to redirect_to(root_path)
-     end
-  	end
+    end
+  end
 end
